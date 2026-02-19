@@ -1,18 +1,21 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'MESSAGE', defaultValue: 'Hello from VS Code', description: 'Experiment 1 Message')
+        string(name: 'MESSAGE', defaultValue: 'Running Version 2', description: 'Enter message')
     }
     stages {
-        stage('Checkout') {
+        stage('Version 2') {
             steps {
+                // Task 1: Checkout (Explicitly shown)
                 checkout scm
-            }
-        }
-        stage('Verification') {
-            steps {
-                echo "Task 2: The parameter value is: ${params.MESSAGE}"
-                bat 'echo Task 3: Hello from Jenkins'
+                echo "TASK 1: Source code successfully pulled from GitHub."
+
+                // Task 2: Display System Date
+                echo "TASK 2: Displaying System Date..."
+                bat 'date /t'
+
+                // Task 3: Print Parameter again
+                echo "TASK 3: Parameter verification: ${params.MESSAGE}"
             }
         }
     }
