@@ -1,26 +1,17 @@
 pipeline {
     agent any
-    parameters {
-        // Task 2: Accept USERNAME parameter from user
-        string(name: 'USERNAME', defaultValue: 'John Doe', description: 'Enter your name to store in the file')
-    }
     stages {
-        stage('Version 4: User Persistence') {
+        stage('Version 1: Env Vars') {
             steps {
-                // Task 1: Checkout latest version
+                // Task 1: Checkout
                 checkout scm
-                echo "TASK 1: Checkout complete for Version 4."
 
-                // Task 2 & 3: Create user.txt and store the parameter inside it
-                echo "TASK 2: Captured Username: ${params.USERNAME}"
-                
-                // Using double quotes " " in bat allows Jenkins to swap ${params.USERNAME} with your input
-                bat "echo ${params.USERNAME} > user.txt"
-                echo "TASK 3: Username has been saved to user.txt."
+                // Task 2: Print all Jenkins environment variables
+                // In Windows, 'set' lists all variables
+                bat 'set'
 
-                // Verify by displaying the file content
-                echo "Verifying file content:"
-                bat 'type user.txt'
+                // Task 3: Display custom echo message using specific variables
+                echo "Custom Message: This is build #${env.BUILD_NUMBER} for the job ${env.JOB_NAME}"
             }
         }
     }
